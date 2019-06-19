@@ -7,6 +7,8 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 let homeRouter = require('./routes/home');
+let mongoose = require('mongoose');
+mongoose.connect('mongodb://127.0.0.1:27017/blogTest');
 
 var app = express();
 

@@ -1,8 +1,11 @@
 let express = require('express');
 let router = express.Router();
+let blogModel = require('./../models/blogModel');
 
 router.get('/',function(req,res,next) {
-    res.render('home',{title:'home'});
+    blogModel.find().then(function (result) {
+        res.render('home',{title:'home',list:result});
+    }).catch();
 });
 
 router.get('/addABlog',function (req,res,next) {
@@ -11,8 +14,13 @@ router.get('/addABlog',function (req,res,next) {
 
 router.post('/api/add',function (req,res,next) {
     console.log(req.body);
-    //连接数据库,将数据存储;
-    res.render('home',{title:'home'});
+    blogModel.create({
+        title:req.body.title,
+        content:req.body.content
+    }).then(function (result) {
+        res.redirect('/home')
+    });
+
 });
 
 
