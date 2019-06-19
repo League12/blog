@@ -23,6 +23,15 @@ router.post('/api/add',function (req,res,next) {
 
 });
 
+router.get('/api/delete',function (req,res,next) {
+    console.log(req.query);
+    blogModel.remove({_id:req.query.deleteId}).then(function (resu) {
+        res.send({ok:1});
+    }).catch(function (err) {
+        res.send({ok:0})
+    })
+});
+
 
 
 module.exports = router;
