@@ -3,9 +3,16 @@ let router = express.Router();
 let blogModel = require('./../models/blogModel');
 
 router.get('/',function(req,res,next) {
-    blogModel.find().then(function (result) {
-        res.render('home',{title:'home',list:result});
-    }).catch();
+
+    if (req.session.any) {
+        blogModel.find().then(function (result) {
+            res.render('home',{title:'home',list:result});
+        }).catch();
+    } else {
+        res.redirect('/login');
+    }
+
+
 });
 
 router.get('/addABlog',function (req,res,next) {
