@@ -20,7 +20,7 @@
     <body>
         <h2><%= title %></h2>
         <div class="container">
-            <form action="/home/api/add" method="post">
+            <form action="/home/api/add" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="exampleInputEmail1">文章标题</label>
                     <input type="text" class="form-control" id="exampleInputEmail1"
@@ -29,6 +29,10 @@
                 <div class="form-group">
                     <label for="exampleInputPassword1">文章内容</label>
                     <textarea name="content" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">添加图片</label>
+                    <input type="file" class="form-control" name="imgpath">
                 </div>
                 <button type="submit" class="btn btn-default">增加一篇文章</button>
             </form>

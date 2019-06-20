@@ -1,6 +1,8 @@
 let express = require('express');
 let router = express.Router();
 let blogModel = require('./../models/blogModel');
+let multer  = require('multer');
+let upload = multer({ dest: 'public/uploads/' });
 
 router.get('/',function(req,res,next) {
 
@@ -11,19 +13,20 @@ router.get('/',function(req,res,next) {
     } else {
         res.redirect('/login');
     }
-
-
+    
 });
 
 router.get('/addABlog',function (req,res,next) {
     res.render('addBolg',{title:'addABlog'});
 });
 
-router.post('/api/add',function (req,res,next) {
+router.post('/api/add',upload.single('imgpath'),function (req,res,next) {
     //console.log(req.body);
+    console.log(req.file);
     blogModel.create({
-        title:req.body.title,
-        content:req.body.content
+        title: req.body.title,
+        content: req.body.content,
+        imgpath: `/uploads/${req.file.filename}`
     }).then(function (result) {
         res.redirect('/home');
     });
